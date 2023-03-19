@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en" xmlns:sec="http://thymeleaf.org/thymeleaf-extras-springsecurity3">
+<head>
+    <meta charset="UTF-8">
+    <title>List of Recipes</title>
+    <link rel="stylesheet"
+          href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"
+          integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u"
+          crossorigin="anonymous">
+</head>
+<body style="background: rgb(255,187,217);
+background: radial-gradient(circle, rgba(255,187,217,1) 0%, rgba(183,216,255,1) 100%);">
+<nav class="navbar navbar-inverse navbar-fixed-top">
+    <div class="container">
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle collapsed"
+                    data-toggle="collapse" data-target="#navbar" aria-expanded="false"
+                    aria-controls="navbar">
+                <span class="sr-only">Toggle navigation</span> <span
+                    class="icon-bar"></span> <span class="icon-bar"></span> <span
+                    class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="#" th:href="@{/}">Recipe App</a>
+        </div>
+        <div id="navbar" class="collapse navbar-collapse">
+            <ul class="nav navbar-nav">
+                <li sec:authorize="isAuthenticated()"><a th:href="@{/create}">Create Recipes</a></li>
+                <li sec:authorize="isAuthenticated()"><a th:href="@{/view}">View Recipes</a></li>
+                <li sec:authorize="isAuthenticated()"><a th:href="@{/meal}">Plan Meal</a></li>
+                <li sec:authorize="isAuthenticated()"><a th:href="@{/profile}">View Profile</a></li>
+                <li sec:authorize="isAuthenticated()"><a th:href="@{/profile/edit}">Edit Profile</a></li>
+                <li sec:authorize="isAuthenticated()"><a th:href="@{/profile/events}">View Events</a></li>
+                <li sec:authorize="isAuthenticated()"><a th:href="@{/logout}">Logout</a></li>
+            </ul>
+        </div>
+
+    </div>
+</nav>
+<br><br>
+<div>
+    <div class="container">
+
+        <div>
+            <h2>Your Event List</h2>
+            <button sec:authorize="isAuthenticated()"><a th:href="@{/profile/events/create}">Create Event</a></button>
+            <table class="table">
+                <thead class="thead-dark">
+                <tr>
+                    <th scope="col">Event Name</th>
+                    <th scope="col">Event Message</th>
+                    <th scope="col">Update</th>
+                    <th scope="col">Delete</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr scope="row" th:each="event : ${events}">
+                    <td th:text="${event.title}">Event Name</td>
+                    <td th:text="${event.description}">Event Message</td>
+                    <td><button type="button" sec:authorize="isAuthenticated()" class="btn btn-warning"><a th:href="@{/profile/events/update/{id}(id =${event.id})}">Update</a></button></td>
+                    <td><button type="button" sec:authorize="isAuthenticated()" class="btn btn-danger"><a th:href="@{/profile/events/delete/{id}(id =${event.id})}">Delete</a></button></td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+</body>
+</html>

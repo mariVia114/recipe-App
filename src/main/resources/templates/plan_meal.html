@@ -1,0 +1,249 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en" xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
+<head>
+    <meta charset="UTF-8">
+    <title>Plan Meal</title>
+
+    <link rel="stylesheet"
+          href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"
+          integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u"
+          crossorigin="anonymous">
+</head>
+<body style="background: rgb(255,187,217);
+background: radial-gradient(circle, rgba(255,187,217,1) 0%, rgba(183,216,255,1) 100%);">
+<nav class="navbar navbar-inverse navbar-fixed-top">
+    <div class="container">
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle collapsed"
+                    data-toggle="collapse" data-target="#navbar" aria-expanded="false"
+                    aria-controls="navbar">
+                <span class="sr-only">Toggle navigation</span> <span
+                    class="icon-bar"></span> <span class="icon-bar"></span> <span
+                    class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="#" th:href="@{/}">Recipe App</a>
+        </div>
+        <div id="navbar" class="collapse navbar-collapse">
+            <ul class="nav navbar-nav">
+				<li sec:authorize="isAuthenticated()"><a th:href="@{/create}">Create Recipes</a></li>
+				<li sec:authorize="isAuthenticated()"><a th:href="@{/view}">View Recipes</a></li>
+				<li sec:authorize="isAuthenticated()"><a th:href="@{/meal}">Plan Meal</a></li>
+				<li sec:authorize="isAuthenticated()"><a th:href="@{/profile}">View Profile</a></li>
+				<li sec:authorize="isAuthenticated()"><a th:href="@{/profile/edit}">Edit Profile</a></li>
+				<li sec:authorize="isAuthenticated()"><a th:href="@{/profile/events}">View Events</a></li>
+				<li sec:authorize="isAuthenticated()"><a th:href="@{/logout}">Logout</a></li>
+            </ul>
+        </div>
+
+    </div>
+</nav>
+<br/>
+<br/>
+
+<div>
+<div class="container">
+	<br><br>
+<h2 class="text-center">Plan Meal</h2>
+<br/>
+<form action="#" th:action="@{/plan}" th:object="${meal}" method="post">
+
+    <table class="table">
+    	<tr>
+    		<th></th>
+    		<th class="text-center">Monday</th>
+    		<th class="text-center">Tuesday</th>
+    		<th class="text-center">Wednesday</th>
+    		<th class="text-center">Thursday</th>
+    		<th class="text-center">Friday</th>
+    		<th class="text-center">Saturday</th>
+    		<th class="text-center">Sunday</th>
+    	</tr>
+    	<tr>
+    		<th>Breakfast</th>
+    		<td>
+            	<select th:field="*{mondayBreakfast}">
+            		<option value="">Choose a recipe</option>
+    				<option th:each="recipe : ${recipeList}" th:value="${recipe.title}" th:text="${recipe.title}"></option>
+				</select>
+            </td>
+            <td>
+            	<select th:field="*{tuesdayBreakfast}">
+            		<option value="">Choose a recipe</option>
+    				<option th:each="recipe : ${recipeList}" th:value="${recipe.title}" th:text="${recipe.title}"></option>
+				</select>
+            </td>
+            <td>
+            	<select th:field="*{wednesdayBreakfast}">
+            	    <option value="">Choose a recipe</option>
+    				<option th:each="recipe : ${recipeList}" th:value="${recipe.title}" th:text="${recipe.title}"></option>
+				</select>
+            </td>
+            <td>
+            	<select th:field="*{thursdayBreakfast}">
+    				<option value="">Choose a recipe</option>
+    				<option th:each="recipe : ${recipeList}" th:value="${recipe.title}" th:text="${recipe.title}"></option>
+				</select>
+            </td>
+            <td>
+            	<select th:field="*{fridayBreakfast}">
+    				<option value="">Choose a recipe</option>
+    				<option th:each="recipe : ${recipeList}" th:value="${recipe.title}" th:text="${recipe.title}"></option>
+				</select>
+            </td>
+            <td>
+            	<select th:field="*{saturdayBreakfast}">
+    				<option value="">Choose a recipe</option>
+    				<option th:each="recipe : ${recipeList}" th:value="${recipe.title}" th:text="${recipe.title}"></option>
+				</select>
+            </td>
+            <td>
+            	<select th:field="*{sundayBreakfast}">
+    				<option value="">Choose a recipe</option>
+    				<option th:each="recipe : ${recipeList}" th:value="${recipe.title}" th:text="${recipe.title}"></option>
+				</select>
+            </td>
+    	</tr>
+    	<tr>
+    		<th>Lunch</th>
+    		<td>
+            	<select th:field="*{mondayLunch}">
+    				<option value="">Choose a recipe</option>
+    				<option th:each="recipe : ${recipeList}" th:value="${recipe.title}" th:text="${recipe.title}"></option>
+				</select>
+            </td>
+            <td>
+            	<select th:field="*{tuesdayLunch}">
+    				<option value="">Choose a recipe</option>
+    				<option th:each="recipe : ${recipeList}" th:value="${recipe.title}" th:text="${recipe.title}"></option>
+				</select>
+            </td>
+            <td>
+            	<select th:field="*{wednesdayLunch}">
+    				<option value="">Choose a recipe</option>
+    				<option th:each="recipe : ${recipeList}" th:value="${recipe.title}" th:text="${recipe.title}"></option>
+				</select>
+            </td>
+            <td>
+            	<select th:field="*{thursdayLunch}">
+    				<option value="">Choose a recipe</option>
+    				<option th:each="recipe : ${recipeList}" th:value="${recipe.title}" th:text="${recipe.title}"></option>
+				</select>
+            </td>
+            <td>
+            	<select th:field="*{fridayLunch}">
+    				<option value="">Choose a recipe</option>
+    				<option th:each="recipe : ${recipeList}" th:value="${recipe.title}" th:text="${recipe.title}"></option>
+				</select>
+            </td>
+            <td>
+            	<select th:field="*{saturdayLunch}">
+    				<option value="">Choose a recipe</option>
+    				<option th:each="recipe : ${recipeList}" th:value="${recipe.title}" th:text="${recipe.title}"></option>
+				</select>
+            </td>
+            <td>
+            	<select th:field="*{sundayLunch}">
+    				<option value="">Choose a recipe</option>
+    				<option th:each="recipe : ${recipeList}" th:value="${recipe.title}" th:text="${recipe.title}"></option>
+				</select>
+            </td>
+    	</tr>
+    	<tr>
+    		<th>Dinner</th>
+    		<td>
+            	<select th:field="*{mondayDinner}">
+    				<option value="">Choose a recipe</option>
+    				<option th:each="recipe : ${recipeList}" th:value="${recipe.title}" th:text="${recipe.title}"></option>
+				</select>
+            </td>
+            <td>
+            	<select th:field="*{tuesdayDinner}">
+    				<option value="">Choose a recipe</option>
+    				<option th:each="recipe : ${recipeList}" th:value="${recipe.title}" th:text="${recipe.title}"></option>
+				</select>
+            </td>
+            <td>
+            	<select th:field="*{wednesdayDinner}">
+    				<option value="">Choose a recipe</option>
+    				<option th:each="recipe : ${recipeList}" th:value="${recipe.title}" th:text="${recipe.title}"></option>
+				</select>
+            </td>
+            <td>
+            	<select th:field="*{thursdayDinner}">
+    				<option value="">Choose a recipe</option>
+    				<option th:each="recipe : ${recipeList}" th:value="${recipe.title}" th:text="${recipe.title}"></option>
+				</select>
+            </td>
+            <td>
+            	<select th:field="*{fridayDinner}">
+    				<option value="">Choose a recipe</option>
+    				<option th:each="recipe : ${recipeList}" th:value="${recipe.title}" th:text="${recipe.title}"></option>
+				</select>
+            </td>
+            <td>
+            	<select th:field="*{saturdayDinner}">
+    				<option value="">Choose a recipe</option>
+    				<option th:each="recipe : ${recipeList}" th:value="${recipe.title}" th:text="${recipe.title}"></option>
+				</select>
+            </td>
+            <td>
+            	<select th:field="*{sundayDinner}">
+    				<option value="">Choose a recipe</option>
+    				<option th:each="recipe : ${recipeList}" th:value="${recipe.title}" th:text="${recipe.title}"></option>
+				</select>
+            </td>
+    	</tr>
+        <tr>
+            <td colspan="8" class="text-center">
+            	<button type="submit" class="btn btn-primary">Save</button>
+            </td>
+        </tr>
+    </table>
+    <br>
+    <table class="table table-bordered table-condensed">
+    	<tr>
+    		<th></th>
+    		<th class="text-center">Monday</th>
+    		<th class="text-center">Tuesday</th>
+    		<th class="text-center">Wednesday</th>
+    		<th class="text-center">Thursday</th>
+    		<th class="text-center">Friday</th>
+    		<th class="text-center">Saturday</th>
+    		<th class="text-center">Sunday</th>
+    	</tr>
+    	<tr>
+    		<th class="text-center">Breakfast</th>
+    		<td><span th:text="${meal.mondayBreakfast}"></span></td>
+            <td><span th:text="${meal.tuesdayBreakfast}"></span></td>
+            <td><span th:text="${meal.wednesdayBreakfast}"></span></td>
+            <td><span th:text="${meal.thursdayBreakfast}"></span></td>
+            <td><span th:text="${meal.fridayBreakfast}"></span></td>
+            <td><span th:text="${meal.saturdayBreakfast}"></span></td>
+            <td><span th:text="${meal.sundayBreakfast}"></span></td>
+    	</tr>
+    	<tr>
+    		<th class="text-center">Lunch</th>
+    		<td><span th:text="${meal.mondayLunch}"></span></td>
+            <td><span th:text="${meal.tuesdayLunch}"></span></td>
+            <td><span th:text="${meal.wednesdayLunch}"></span></td>
+            <td><span th:text="${meal.thursdayLunch}"></span></td>
+            <td><span th:text="${meal.fridayLunch}"></span></td>
+            <td><span th:text="${meal.saturdayLunch}"></span></td>
+            <td><span th:text="${meal.sundayLunch}"></span></td>
+    	</tr>
+    	<tr>
+    		<th class="text-center">Dinner</th>
+    		<td><span th:text="${meal.mondayDinner}"></span></td>
+            <td><span th:text="${meal.tuesdayDinner}"></span></td>
+            <td><span th:text="${meal.wednesdayDinner}"></span></td>
+            <td><span th:text="${meal.thursdayDinner}"></span></td>
+            <td><span th:text="${meal.fridayDinner}"></span></td>
+            <td><span th:text="${meal.saturdayDinner}"></span></td>
+            <td><span th:text="${meal.sundayDinner}"></span></td>
+    	</tr>
+    </table>
+</form>
+</div>
+</div>
+</body>
+</html>

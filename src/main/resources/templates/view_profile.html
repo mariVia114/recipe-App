@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html xmlns:th="http://thymeleaf.org" lang="en" xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
+<head>
+    <meta charset="UTF-8">
+    <title>List of Recipes</title>
+    <link rel="stylesheet"
+          href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"
+          integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u"
+          crossorigin="anonymous">
+</head>
+<body style="background: rgb(255,187,217);
+background: radial-gradient(circle, rgba(255,187,217,1) 0%, rgba(183,216,255,1) 100%);">
+<nav class="navbar navbar-inverse navbar-fixed-top">
+    <div class="container">
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle collapsed"
+                    data-toggle="collapse" data-target="#navbar" aria-expanded="false"
+                    aria-controls="navbar">
+                <span class="sr-only">Toggle navigation</span> <span
+                    class="icon-bar"></span> <span class="icon-bar"></span> <span
+                    class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="#" th:href="@{/}">Recipe App</a>
+        </div>
+        <div id="navbar" class="collapse navbar-collapse">
+            <ul class="nav navbar-nav">
+                <li sec:authorize="isAuthenticated()"><a th:href="@{/create}">Create Recipes</a></li>
+                <li sec:authorize="isAuthenticated()"><a th:href="@{/view}">View Recipes</a></li>
+                <li sec:authorize="isAuthenticated()"><a th:href="@{/meal}">Plan Meal</a></li>
+				<li sec:authorize="isAuthenticated()"><a th:href="@{/profile}">View Profile</a></li>
+				<li sec:authorize="isAuthenticated()"><a th:href="@{/profile/edit}">Edit Profile</a></li>
+				<li sec:authorize="isAuthenticated()"><a th:href="@{/profile/events}">View Events</a></li>
+				<li sec:authorize="isAuthenticated()"><a th:href="@{/logout}">Logout</a></li>
+            </ul>
+        </div>
+
+    </div>
+</nav>
+<br><br>
+<div>
+	<div class="container">
+		<br><br>
+		<b><a href="/view_fave" class="">View My Favorite Recipes &rarr;</a></b>
+    	<h1>Welcome <span sec:authentication="principal.username">User</span></h1>
+    	<h2>First Name: <span th:text="${user.firstName}"></span></h2>
+    	<h2>Last Name: <span th:text="${user.lastName}"></span></h2>
+    	<h2>E-Mail: <span th:text="${user.email}"></span></h2>
+
+		<div>
+    	<h2>Your Recipe List</h2>
+    	<table class="table">
+        	<thead class="thead-dark">
+        	<tr>
+            	<th scope="col">Recipe Name</th>
+            	<th scope="col">Ingredients</th>
+            	<th scope="col">Instructions</th>
+        	</tr>
+        	</thead>
+        	<tbody>
+        		<tr scope="row" th:each="recipe : ${recipes}">
+            		<td th:text="${recipe.title}">Recipe Name</td>
+            		<td th:text="${recipe.ingredients}">Ingredients</td>
+            		<td th:text="${recipe.instruction}"><a th:href="@{/logout}">${recipe.instruction}"</a>Instruction</td>
+        		</tr>
+        	</tbody>
+    	</table>
+    	<p th:each="recipe : ${recipes}" th:unless="${recipe.author} != ${name}">List is empty</p>
+		</div>
+	</div>
+</div>
+</body>
+</html>
